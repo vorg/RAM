@@ -1,9 +1,9 @@
 import { createStore } from 'redux';
-import todoApp from './reducers';
+import ramApp from './reducers';
 
-let store = createStore(todoApp);
+let store = createStore(ramApp);
 
-import { addTodo, completeTodo, setVisibilityFilter, VisibilityFilters } from './actions';
+import { addItem, completeItem, setVisibilityFilter, VisibilityFilters } from './actions';
 
 // Log the initial state
 console.log(store.getState());
@@ -14,11 +14,11 @@ let unsubscribe = store.subscribe(() =>
 );
 
 // Dispatch some actions
-store.dispatch(addTodo('Learn about actions'));
-store.dispatch(addTodo('Learn about reducers'));
-store.dispatch(addTodo('Learn about store'));
-store.dispatch(completeTodo(0));
-store.dispatch(completeTodo(1));
+store.dispatch(addItem('Learn about actions'));
+store.dispatch(addItem('Learn about reducers'));
+store.dispatch(addItem('Learn about store'));
+store.dispatch(completeItem(0));
+store.dispatch(completeItem(1));
 store.dispatch(setVisibilityFilter(VisibilityFilters.SHOW_COMPLETED));
 
 // Stop listening to state updates

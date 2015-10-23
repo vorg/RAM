@@ -2,8 +2,8 @@
  * action types
  */
 
-export const ADD_TODO = 'ADD_TODO';
-export const COMPLETE_TODO = 'COMPLETE_TODO';
+export const ADD_ITEM = 'ADD_ITEM';
+export const COMPLETE_ITEM = 'COMPLETE_ITEM';
 export const SET_VISIBILITY_FILTER = 'SET_VISIBILITY_FILTER';
 
 /*
@@ -20,12 +20,12 @@ export const VisibilityFilters = {
  * action creators
  */
 
-export function addTodo(text) {
-  return { type: ADD_TODO, text };
+export function addItem(text) {
+  return { type: ADD_ITEM, text };
 }
 
-export function completeTodo(index) {
-  return { type: COMPLETE_TODO, index };
+export function completeItem(index) {
+  return { type: COMPLETE_ITEM, index };
 }
 
 export function setVisibilityFilter(filter) {

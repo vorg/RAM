@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { ADD_TODO, COMPLETE_TODO, SET_VISIBILITY_FILTER, VisibilityFilters } from './actions';
+import { ADD_ITEM, COMPLETE_ITEM, SET_VISIBILITY_FILTER, VisibilityFilters } from './actions';
 const { SHOW_ALL } = VisibilityFilters;
 
 function visibilityFilter(state = SHOW_ALL, action) {
@@ -11,14 +11,15 @@ function visibilityFilter(state = SHOW_ALL, action) {
   }
 }
 
-function todos(state = [], action) {
+function items(state = [], action) {
   switch (action.type) {
-  case ADD_TODO:
+  case ADD_ITEM:
     return [...state, {
+      id: ''+Date.now(),
       text: action.text,
       completed: false
     }];
-  case COMPLETE_TODO:
+  case COMPLETE_ITEM:
     return [
       ...state.slice(0, action.index),
       Object.assign({}, state[action.index], {
@@ -31,9 +32,9 @@ function todos(state = [], action) {
   }
 }
 
-const todoApp = combineReducers({
+const ramApp = combineReducers({
   visibilityFilter,
-  todos
+  items
 });
 
-export default todoApp;
+export default ramApp;
