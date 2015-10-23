@@ -8,7 +8,7 @@ import ReactDOM from 'react-dom';
 import React from 'react';
 
 const Provider = React.createFactory(require('react-redux').Provider);
-const ListContainer = React.createFactory(require('./components/list-container'));
+const List = React.createFactory(require('./components/list'));
 
 const appNode = document.querySelector('#app');
 
@@ -17,7 +17,7 @@ class App extends Component {
     return React.DOM.div({},
         'Hello World 2',
         Provider({ store: store },
-            ListContainer({ items: [{text:'bla', id:'dsfs'}]})
+            List()
         )
     )
   }

@@ -1,6 +1,15 @@
 import { Component, DOM } from 'react';
+import { connect } from 'react-redux';
+import { selectNext, selectPrev } from '../actions';
 
-export default class List extends Component {
+class List extends Component {
+  componentDidMount() {
+    var dispatch = this.props.dispatch;
+    window.addEventListener('keydown', (e) => {
+        if (e.keyIdentifier == 'Down') { dispatch(selectNext())};
+        if (e.keyIdentifier == 'Up') { dispatch(selectPrev())};
+    })
+  }
   render() {
     return DOM.ul(null, this.props.items.map(
         (item) => {
@@ -12,3 +21,11 @@ export default class List extends Component {
     ));
   }
 }
+
+function select(state) {
+  return {
+    items: state.items
+  };
+}
+
+export default connect(select)(List);
