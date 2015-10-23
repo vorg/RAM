@@ -3,14 +3,14 @@ import ramApp from './reducers';
 
 let store = createStore(ramApp);
 
-import { addItem, completeItem, setVisibilityFilter, VisibilityFilters } from './actions';
+import { addItem, completeItem, selectNext, selectPrev } from './actions';
 
 // Log the initial state
 console.log(store.getState());
 
 // Every time the state changes, log it
 let unsubscribe = store.subscribe(() =>
-  console.log(store.getState())
+  console.log(store.getState().items.length)
 );
 
 // Dispatch some actions
@@ -19,7 +19,10 @@ store.dispatch(addItem('Learn about reducers'));
 store.dispatch(addItem('Learn about store'));
 store.dispatch(completeItem(0));
 store.dispatch(completeItem(1));
-store.dispatch(setVisibilityFilter(VisibilityFilters.SHOW_COMPLETED));
+store.dispatch(selectNext());
+store.dispatch(selectNext());
+store.dispatch(selectNext());
+store.dispatch(selectNext());
 
 // Stop listening to state updates
 unsubscribe();
