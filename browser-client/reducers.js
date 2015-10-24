@@ -1,9 +1,10 @@
 import { combineReducers } from 'redux';
-import { ADD_ITEM, COMPLETE_ITEM, SELECT_NEXT, SELECT_PREV } from './actions';
+import { ADD_ITEM, ADD_NEW_ITEM, COMPLETE_ITEM, SELECT_NEXT, SELECT_PREV } from './actions';
 
 var nextId = 0;
 
 function items(state = [], action) {
+    console.log(action)
   switch (action.type) {
   case SELECT_PREV:
       var index = state.reduce((selectedIndex, item, itemIndex) => { return item.selected ? itemIndex : selectedIndex }, -1);
@@ -50,14 +51,37 @@ function items(state = [], action) {
       completed: false,
       selected: false
     }];
+    case ADD_NEW_ITEM:
+        var index = state.reduce((selectedIndex, item, itemIndex) => { return item.selected ? itemIndex : selectedIndex }, -1);
+        if (index != -1) {
+            return [
+              ...state.slice(0, index),
+              Object.assign({}, state[index], {
+                  selected: false
+              }),
+              {
+                id: '' + Date.now() + '' + nextId++,
+                text: 'New Item',
+                completed: false,
+                selected: true
+            },
+            ...state.slice(index+1)
+          ];
+  }
+  else return state;
   case COMPLETE_ITEM:
-    return [
-      ...state.slice(0, action.index),
-      Object.assign({}, state[action.index], {
-        completed: true
-      }),
-      ...state.slice(action.index + 1)
-    ];
+  console.log('COMPLETE_ITEM');
+    var index = state.reduce((selectedIndex, item, itemIndex) => { return item.selected ? itemIndex : selectedIndex }, -1);
+    if (index != -1) {
+        return [
+          ...state.slice(0, index),
+          Object.assign({}, state[index], {
+            completed: !state[index].completed
+          }),
+          ...state.slice(index + 1)
+        ];
+    }
+    return state;
   default:
     return state;
   }

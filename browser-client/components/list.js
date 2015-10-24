@@ -1,6 +1,6 @@
 import { Component, DOM } from 'react';
 import { connect } from 'react-redux';
-import { selectNext, selectPrev } from '../actions';
+import { selectNext, selectPrev, addNewItem, completeItem } from '../actions';
 
 class List extends Component {
   componentDidMount() {
@@ -8,14 +8,19 @@ class List extends Component {
     window.addEventListener('keydown', (e) => {
         if (e.keyIdentifier == 'Down') { dispatch(selectNext())};
         if (e.keyIdentifier == 'Up') { dispatch(selectPrev())};
+        if (e.keyIdentifier == 'Enter') { dispatch(addNewItem())};
+        if (e.keyCode == 32) { dispatch(completeItem())};
     })
   }
   render() {
     return DOM.ul(null, this.props.items.map(
         (item) => {
+            let className = '';
+            if (item.selected) className += ' selected';
+            if (item.completed) className += ' completed';
             return DOM.li({
                 key: item.id,
-                className: item.selected ? 'selected' : ''
+                className: className
             }, item.id + ' : ' + item.text)
         }
     ));
