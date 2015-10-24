@@ -17,3 +17,10 @@ TODO:
 - Links, tutorials, middleware https://github.com/xgrommx/awesome-redux
 - Normalizr - flattening nested structures https://github.com/gaearon/normalizr
 - Updeep - nondestructive deep update for nested structures https://github.com/substantial/updeep
+
+
+## Actions
+
+addItem() -> add new item at the end of list
+[enter] -> if .editing -> finish editing
+           if !.editing -> add new item below currently selected

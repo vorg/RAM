@@ -3,7 +3,7 @@ import ramApp from './reducers';
 
 let store = createStore(ramApp);
 
-import { addItem, completeItem, selectNext, selectPrev } from './actions';
+import { addItem, completeItem, selectNext, selectPrev, startEditingItem } from './actions';
 
 // Log the initial state
 console.log(store.getState());
@@ -20,6 +20,7 @@ store.dispatch(addItem('Learn about store'));
 //store.dispatch(completeItem(0));
 //store.dispatch(completeItem(1));
 store.dispatch(selectNext());
+//store.dispatch(startEditingItem());
 //store.dispatch(selectNext());
 //store.dispatch(selectNext());
 //store.dispatch(selectNext());

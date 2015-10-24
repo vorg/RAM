@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { ADD_ITEM, ADD_NEW_ITEM, COMPLETE_ITEM, SELECT_NEXT, SELECT_PREV } from './actions';
+import { ADD_ITEM, ADD_NEW_ITEM, COMPLETE_ITEM, SELECT_NEXT, SELECT_PREV, START_EDITING_ITEM, END_EDITING_ITEM } from './actions';
 
 var nextId = 0;
 
@@ -13,7 +13,7 @@ function app(state = initialState, action) {
     console.log(action, index);
   switch (action.type) {
   case SELECT_PREV:
-      if (index > 0) {
+      if (index > 0 && !state.items[index].editing) {
           return Object.assign({}, state, {
               selectedIndex: index - 1
           });
@@ -25,7 +25,7 @@ function app(state = initialState, action) {
             selectedIndex: 0
         });
     }
-    else if (index < state.items.length-1) {
+    else if (index < state.items.length-1 && !state.items[index].editing) {
         return Object.assign({}, state, {
             selectedIndex: index + 1
         });
@@ -42,6 +42,7 @@ function app(state = initialState, action) {
         ]
     });
     case ADD_NEW_ITEM:
+        if (state.items[index].editing) return state;
         if (index != -1) {
             return Object.assign({}, state, {
                 selectedIndex: index + 1,
@@ -61,14 +62,41 @@ function app(state = initialState, action) {
             return Object.assign({}, state, {
                 items: [
                   ...state.items.slice(0, index),
-                  Object.assign({}, state[index], {
-                    completed: !state[index].completed
+                  Object.assign({}, state.items[index], {
+                    completed: !state.items[index].completed
                   }),
                   ...state.items.slice(index + 1)
                 ]
             });
         }
-        return state;
+    return state;
+    case START_EDITING_ITEM:
+          if (index != -1) {
+              return Object.assign({}, state, {
+                  items: [
+                    ...state.items.slice(0, index),
+                    Object.assign({}, state.items[index], {
+                      editing: true
+                    }),
+                    ...state.items.slice(index + 1)
+                  ]
+              });
+          }
+      return state;
+      case END_EDITING_ITEM:
+            if (index != -1) {
+                return Object.assign({}, state, {
+                    items: [
+                      ...state.items.slice(0, index),
+                      Object.assign({}, state.items[index], {
+                        text: action.text,
+                        editing: false
+                      }),
+                      ...state.items.slice(index + 1)
+                    ]
+                });
+            }
+            return state;
   default:
     return state;
   }

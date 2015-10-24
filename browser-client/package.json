@@ -10,6 +10,7 @@
     "url": "https://github.com/vorg"
   },
   "dependencies": {
+    "classnames": "^2.2.0",
     "install": "^0.1.8",
     "npm": "^3.3.9",
     "react": "^0.14.0",

@@ -1,16 +1,31 @@
-import { Component, DOM } from 'react';
+import React, { Component, DOM } from 'react';
 import { connect } from 'react-redux';
-import { selectNext, selectPrev, addNewItem, completeItem } from '../actions';
+import { selectNext, selectPrev, addNewItem, completeItem, startEditingItem, endEditingItem } from '../actions';
+const ListItemInput = React.createFactory(require('./list-item-input'))
 
 class List extends Component {
   componentDidMount() {
     var dispatch = this.props.dispatch;
     window.addEventListener('keydown', (e) => {
+        console.log(e)
         if (e.keyIdentifier == 'Down') { dispatch(selectNext())};
         if (e.keyIdentifier == 'Up') { dispatch(selectPrev())};
-        if (e.keyIdentifier == 'Enter') { dispatch(addNewItem())};
+        if (e.keyIdentifier == 'Enter') {
+            dispatch(addNewItem())
+            dispatch(startEditingItem())
+        };
+        if (e.keyIdentifier == 'F2') { dispatch(startEditingItem())};
+        if (e.keyCode == 27) { dispatch(endEditingItem())};
         if (e.keyCode == 32) { dispatch(completeItem())};
     })
+  }
+  onSave (text) {
+      var dispatch = this.props.dispatch;
+      console.log('onSave', text);
+      dispatch(endEditingItem(text))
+  }
+  onChange (e) {
+    console.log(e)
   }
   render() {
     return DOM.ul(null, this.props.items.map(
@@ -18,7 +33,21 @@ class List extends Component {
             let className = '';
             if (index == this.props.selectedIndex) className += ' selected';
             if (item.completed) className += ' completed';
-            return DOM.li({
+            if (item.editing) {
+                return DOM.li({
+                    key: item.id,
+                    className: className,
+                }, item.id + ' : ',
+                ListItemInput({ text: item.text, onSave: this.onSave.bind(this) })
+                //return DOM.input({
+                //    type: 'text',
+                //    autoFocus: 'true',
+                //    value: item.text,
+                //    onChange: this.onChange
+                //})
+            )
+            }
+            else return DOM.li({
                 key: item.id,
                 className: className
             }, item.id + ' : ' + item.text)
