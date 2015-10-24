@@ -58,7 +58,7 @@ function app(state = initialState, action) {
         }
         else return state;
   case COMPLETE_ITEM:
-        if (index != -1) {
+        if (index != -1 && !state.items[index].editing) {
             return Object.assign({}, state, {
                 items: [
                   ...state.items.slice(0, index),

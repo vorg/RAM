@@ -11,7 +11,7 @@ class ListItemInput extends Component {
 
   handleSubmit(e) {
     const text = e.target.value.trim();
-    if (e.which === 13) {
+    if (e.which === 13 || e.which == 27) {
       this.props.onSave(text);
       e.stopPropagation();
       if (this.props.newTodo) {

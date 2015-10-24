@@ -15,7 +15,6 @@ class List extends Component {
             dispatch(startEditingItem())
         };
         if (e.keyIdentifier == 'F2') { dispatch(startEditingItem())};
-        if (e.keyCode == 27) { dispatch(endEditingItem())};
         if (e.keyCode == 32) { dispatch(completeItem())};
     })
   }

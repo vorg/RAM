@@ -19,7 +19,7 @@ export function completeItem(index) {
 }
 
 export function selectNext() {
-return { type: SELECT_NEXT };
+    return { type: SELECT_NEXT };
 }
 
 export function selectPrev() {
