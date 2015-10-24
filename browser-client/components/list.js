@@ -14,9 +14,9 @@ class List extends Component {
   }
   render() {
     return DOM.ul(null, this.props.items.map(
-        (item) => {
+        (item, index) => {
             let className = '';
-            if (item.selected) className += ' selected';
+            if (index == this.props.selectedIndex) className += ' selected';
             if (item.completed) className += ' completed';
             return DOM.li({
                 key: item.id,
@@ -29,7 +29,8 @@ class List extends Component {
 
 function select(state) {
   return {
-    items: state.items
+    items: state.app.items,
+    selectedIndex: state.app.selectedIndex
   };
 }
 
