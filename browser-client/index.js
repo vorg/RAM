@@ -15,7 +15,7 @@ const appNode = document.querySelector('#app');
 class App extends Component {
   render() {
     return React.DOM.div({},
-        'Hello World 2',
+        React.DOM.h1({}, 'RAM'),
         Provider({ store: store },
             List()
         )

@@ -36,7 +36,8 @@ class List extends Component {
                 return DOM.li({
                     key: item.id,
                     className: className,
-                }, item.id + ' : ',
+                },
+                '- ',
                 ListItemInput({ text: item.text, onSave: this.onSave.bind(this) })
                 //return DOM.input({
                 //    type: 'text',
@@ -49,7 +50,7 @@ class List extends Component {
             else return DOM.li({
                 key: item.id,
                 className: className
-            }, item.id + ' : ' + item.text)
+            }, '- ' + item.text)
         }
     ));
   }
