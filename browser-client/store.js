@@ -19,7 +19,7 @@ store.dispatch(addItem('Learn about reducers'));
 store.dispatch(addItem('Learn about store'));
 //store.dispatch(completeItem(0));
 //store.dispatch(completeItem(1));
-store.dispatch(selectNext());
+//store.dispatch(selectNext());
 //store.dispatch(startEditingItem());
 //store.dispatch(selectNext());
 //store.dispatch(selectNext());
