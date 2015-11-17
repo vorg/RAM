@@ -8,14 +8,27 @@ class List extends Component {
     var dispatch = this.props.dispatch;
     window.addEventListener('keydown', (e) => {
         console.log(e)
-        if (e.keyIdentifier == 'Down') { dispatch(selectNext())};
-        if (e.keyIdentifier == 'Up') { dispatch(selectPrev())};
+        if (e.keyIdentifier == 'Down') {
+            e.preventDefault();
+            dispatch(selectNext())
+        };
+        if (e.keyIdentifier == 'Up') {
+            e.preventDefault();
+            dispatch(selectPrev())
+        };
         if (e.keyIdentifier == 'Enter') {
+            e.preventDefault();
             dispatch(addNewItem())
             dispatch(startEditingItem())
         };
-        if (e.keyIdentifier == 'F2') { dispatch(startEditingItem())};
-        if (e.keyCode == 32) { dispatch(completeItem())};
+        if (e.keyIdentifier == 'F2') {
+            e.preventDefault();
+            dispatch(startEditingItem())
+        };
+        if (e.keyCode == 32) {
+            e.preventDefault();
+            dispatch(completeItem())
+        };
     })
   }
   onSave (text) {
