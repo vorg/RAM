@@ -10,6 +10,7 @@ export const ADD_NEW_ITEM = 'ADD_NEW_ITEM';
 export const START_EDITING_ITEM = 'START_EDITING_ITEM';
 export const END_EDITING_ITEM = 'END_EDITING_ITEM';
 export const REPLACE_ITEMS = 'REPLACE_ITEMS';
+export const SET_LAYOUT = 'SET_LAYOUT';
 
 export function addItem(text) {
   return { type: ADD_ITEM, text };
@@ -41,4 +42,8 @@ export function endEditingItem(text) {
 
 export function replaceItems(items) {
     return { type: REPLACE_ITEMS, items: items };
+}
+
+export function setLayout(layout, maxLevel) {
+    return { type: SET_LAYOUT, layout: layout, maxLevel: maxLevel };
 }

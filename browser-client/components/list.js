@@ -52,7 +52,7 @@ class List extends Component {
 
     var items = this.gatherItems(this.props.items, [])
 
-    return DOM.ul(null, items.map(
+    return DOM.ul({ className: 'list' }, items.map(
         (item, index) => {
             let className = '';
             if (index == this.props.selectedIndex) className += ' selected';

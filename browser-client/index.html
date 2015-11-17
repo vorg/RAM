@@ -37,33 +37,56 @@ h1 {
 }
 
 ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.header {
+    height: 2.5em;
+    overflow: auto;
+}
+
+.header span {
+    float: left;
+    padding: 0.2em 0.5em;
+}
+
+.header ul li {
+    background: #333;
+    padding: 0.2em 0.5em;
+    margin-right: 1px;
+    float: right;
+}
+
+ul.list {
     max-width: 1000px;
     margin: 0px auto;
 }
 
-li {
+ul.list li {
     padding: 0.5em;
     background: #FFF;
     margin: 1px;
     border-radius: 3px;
-    list-style-type: none;
 }
 
-li.selected {
+ul.list li.selected {
     color: red;
 }
 
-li.completed {
+ul.list li.completed {
     text-decoration: line-through;
 }
 
-li input {
+ul.list li input {
     font-size: 1rem;
     padding: 0;
     margin: 0;
     border: 0;
     background: #FFFFDD;
 }
+
 </style>
 </head>
 <body>

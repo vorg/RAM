@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { ADD_ITEM, ADD_NEW_ITEM, COMPLETE_ITEM, SELECT_NEXT, SELECT_PREV, START_EDITING_ITEM, END_EDITING_ITEM, REPLACE_ITEMS } from './actions';
+import { ADD_ITEM, ADD_NEW_ITEM, COMPLETE_ITEM, SELECT_NEXT, SELECT_PREV, START_EDITING_ITEM, END_EDITING_ITEM, REPLACE_ITEMS, SET_LAYOUT } from './actions';
 
 var R = require('ramda');
 
@@ -8,13 +8,14 @@ var nextId = 0;
 var initialState = {
     selectedIndex: 0,
     pid: null,
-    maxLevel: 1,
+    layout: 'list',
+    maxLevel: 2,
     items: []
 }
 
 function app(state = initialState, action) {
     let index = state.selectedIndex;
-    console.log(action, index);
+    console.log(action, index, state, state.items.length);
     switch (action.type) {
 
         case SELECT_PREV:
@@ -112,10 +113,8 @@ function app(state = initialState, action) {
             return state;
 
         case REPLACE_ITEMS:
+            console.log('state.maxLevel', state.maxLevel)
             var all = action.items;
-            //var items = all.filter(function(item) {
-            //    return item.pid == state.pid;
-            //});
 
             var root = { text: 'Root ' + state.pid, id: state.pid, level: -1 };
             var parentsQueue = [ root ]
@@ -136,18 +135,24 @@ function app(state = initialState, action) {
                         currentParent.children = children;
                         parentsQueue = parentsQueue.concat(children);
                     }
+                    else {
+                        currentParent.children = null;
+                    }
                     checkParentQueue();
                 }
             }
 
             checkParentQueue();
 
-            console.log('root.children', root.children)
-
-
             return Object.assign({}, state, {
                 all: all,
-                items: root.children
+                items: root.children.slice(0)
+            });
+
+        case SET_LAYOUT:
+            return Object.assign({}, state, {
+                layout: action.layout,
+                maxLevel: action.maxLevel
             });
 
         default:
