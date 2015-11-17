@@ -9,6 +9,7 @@ export const SELECT_PREV = 'SELECT_PREV';
 export const ADD_NEW_ITEM = 'ADD_NEW_ITEM';
 export const START_EDITING_ITEM = 'START_EDITING_ITEM';
 export const END_EDITING_ITEM = 'END_EDITING_ITEM';
+export const REPLACE_ITEMS = 'REPLACE_ITEMS';
 
 export function addItem(text) {
   return { type: ADD_ITEM, text };
@@ -36,4 +37,8 @@ export function startEditingItem() {
 
 export function endEditingItem(text) {
     return { type: END_EDITING_ITEM, text: text };
+}
+
+export function replaceItems(items) {
+    return { type: REPLACE_ITEMS, items: items };
 }

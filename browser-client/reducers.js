@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { ADD_ITEM, ADD_NEW_ITEM, COMPLETE_ITEM, SELECT_NEXT, SELECT_PREV, START_EDITING_ITEM, END_EDITING_ITEM } from './actions';
+import { ADD_ITEM, ADD_NEW_ITEM, COMPLETE_ITEM, SELECT_NEXT, SELECT_PREV, START_EDITING_ITEM, END_EDITING_ITEM, REPLACE_ITEMS } from './actions';
 
 var nextId = 0;
 
@@ -82,24 +82,29 @@ function app(state = initialState, action) {
                   ]
               });
           }
-      return state;
-      case END_EDITING_ITEM:
-            if (index != -1) {
-                return Object.assign({}, state, {
-                    items: [
-                      ...state.items.slice(0, index),
-                      Object.assign({}, state.items[index], {
-                        text: action.text,
-                        editing: false
-                      }),
-                      ...state.items.slice(index + 1)
-                    ]
-                });
-            }
-            return state;
-  default:
     return state;
-  }
+    case END_EDITING_ITEM:
+        if (index != -1) {
+            return Object.assign({}, state, {
+                items: [
+                    ...state.items.slice(0, index),
+                    Object.assign({}, state.items[index], {
+                    text: action.text,
+                    editing: false
+                    }),
+                    ...state.items.slice(index + 1)
+                ]
+            });
+        }
+        return state;
+    case REPLACE_ITEMS:
+        return Object.assign({}, state, {
+            items: action.items
+        });
+
+    default:
+        return state;
+    }
 }
 
 const ramApp = combineReducers({

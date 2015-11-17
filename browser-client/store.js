@@ -3,7 +3,7 @@ import ramApp from './reducers';
 
 let store = createStore(ramApp);
 
-import { addItem, completeItem, selectNext, selectPrev, startEditingItem } from './actions';
+import { addItem, completeItem, selectNext, selectPrev, startEditingItem, replaceItems } from './actions';
 
 // Log the initial state
 console.log(store.getState());
@@ -29,3 +29,47 @@ store.dispatch(addItem('Learn about store'));
 unsubscribe();
 
 export default store;
+
+
+function loadTextBrowser(url, callback) {
+  var request = new XMLHttpRequest();
+  request.open('GET', url, true);
+  request.onreadystatechange = function (e) {
+    if (request.readyState == 4) {
+      if (request.status == 200) {
+        if (callback) {
+          callback(null, request.responseText);
+        }
+      }
+      else {
+        callback('WebIO.loadTextFile error : ' + request.statusText, null);
+      }
+    }
+  };
+  request.send(null);
+}
+
+console.log('loadTextBrowser')
+loadTextBrowser('data/workflowy/2014-10-01.json', function(err, dataStr) {
+    var data = JSON.parse(dataStr);
+
+    function gatherChildren(pid, children, list) {
+        return children.reduce(function(list, item) {
+            list.push({
+                id: item.id,
+                pid: pid,
+                text: item.nm
+            });
+            if (item.ch) {
+                gatherChildren(item.id, item.ch, list);
+            }
+            return list;
+        }, list);
+    }
+
+    var items = gatherChildren(null, data, []);
+
+    console.log('workflowy.items', items.length);
+
+    store.dispatch(replaceItems(items));
+})
