@@ -9,7 +9,7 @@ var initialState = {
     selectedIndex: 0,
     pid: null,
     layout: 'list',
-    maxLevel: 2,
+    maxLevel: 0,
     items: []
 }
 
