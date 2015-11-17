@@ -1,12 +1,14 @@
 import { combineReducers } from 'redux';
 import { ADD_ITEM, ADD_NEW_ITEM, COMPLETE_ITEM, SELECT_NEXT, SELECT_PREV, START_EDITING_ITEM, END_EDITING_ITEM, REPLACE_ITEMS } from './actions';
 
+var R = require('ramda');
+
 var nextId = 0;
 
 var initialState = {
     selectedIndex: 0,
     pid: null,
-    depth: 0,
+    maxLevel: 1,
     items: []
 }
 
@@ -110,8 +112,42 @@ function app(state = initialState, action) {
             return state;
 
         case REPLACE_ITEMS:
+            var all = action.items;
+            //var items = all.filter(function(item) {
+            //    return item.pid == state.pid;
+            //});
+
+            var root = { text: 'Root ' + state.pid, id: state.pid, level: -1 };
+            var parentsQueue = [ root ]
+            var items = [];
+
+            function fetchChildren(pid) {
+                return R.filter(R.propEq('pid', pid), all)
+            }
+
+            function checkParentQueue() {
+                if (parentsQueue.length > 0) {
+                    var currentParent = parentsQueue.shift();
+                    if (currentParent.level < state.maxLevel) {
+                        var children = fetchChildren(currentParent.id);
+                        children.forEach(function(item) {
+                            item.level = currentParent.level + 1;
+                        })
+                        currentParent.children = children;
+                        parentsQueue = parentsQueue.concat(children);
+                    }
+                    checkParentQueue();
+                }
+            }
+
+            checkParentQueue();
+
+            console.log('root.children', root.children)
+
+
             return Object.assign({}, state, {
-                items: action.items
+                all: all,
+                items: root.children
             });
 
         default:

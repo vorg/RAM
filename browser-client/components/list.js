@@ -26,8 +26,20 @@ class List extends Component {
   onChange (e) {
     console.log(e)
   }
+  gatherItems (children, list) {
+      return children.reduce(function(list, item) {
+          list.push(item);
+          if (item.children) {
+              this.gatherItems(item.children, list);
+          }
+          return list;
+      }.bind(this), list);
+  }
   render() {
-    return DOM.ul(null, this.props.items.map(
+
+    var items = this.gatherItems(this.props.items, [])
+
+    return DOM.ul(null, items.map(
         (item, index) => {
             let className = '';
             if (index == this.props.selectedIndex) className += ' selected';
@@ -49,7 +61,8 @@ class List extends Component {
             }
             else return DOM.li({
                 key: item.id,
-                className: className
+                className: className,
+                style: { paddingLeft: (item.level + 1) * 20 }
             }, '- ' + item.text)
         }
     ));
