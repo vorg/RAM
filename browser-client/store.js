@@ -50,11 +50,13 @@ function loadTextBrowser(url, callback) {
 }
 
 console.log('loadTextBrowser')
-loadTextBrowser('data/workflowy/2014-10-01.json', function(err, dataStr) {
+//loadTextBrowser('data/workflowy/2014-10-01.json', function(err, dataStr) {
+loadTextBrowser('temp/tmp.json', function(err, dataStr) {
     var data = JSON.parse(dataStr);
 
     function gatherChildren(pid, children, list) {
         return children.reduce(function(list, item) {
+            if (item.id == 'bda94c64-2bf1-0a31-c9d0-fd31aee03a7c') console.log('item',item);
             list.push({
                 id: item.id,
                 pid: pid,
@@ -68,6 +70,10 @@ loadTextBrowser('data/workflowy/2014-10-01.json', function(err, dataStr) {
     }
 
     var items = gatherChildren(null, data, []);
+
+    console.log('item', items.filter(function(item) {
+        return item.pid == 'bda94c64-2bf1-0a31-c9d0-fd31aee03a7c';
+    }))
 
     console.log('workflowy.items', items.length);
 

@@ -14,7 +14,7 @@ class Header extends Component {
             React.DOM.span({ className: 'title'}, 'RAM'),
             React.DOM.ul({ className: 'button-list' },
                 React.DOM.li({}, React.DOM.a({ onClick: this.onLayoutClick.bind(this, 'stacks', 1)}, 'Stacks')),
-                React.DOM.li({}, React.DOM.a({ onClick: this.onLayoutClick.bind(this, 'stream', 2)}, 'Stream')),
+                React.DOM.li({}, React.DOM.a({ onClick: this.onLayoutClick.bind(this, 'stream', 1)}, 'Stream')),
                 React.DOM.li({}, React.DOM.a({ onClick: this.onLayoutClick.bind(this, 'list', 2)}, 'L3')),
                 React.DOM.li({}, React.DOM.a({ onClick: this.onLayoutClick.bind(this, 'list', 1)}, 'L2')),
                 React.DOM.li({}, React.DOM.a({ onClick: this.onLayoutClick.bind(this, 'list', 0)}, 'L1'))

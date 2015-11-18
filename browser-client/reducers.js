@@ -7,7 +7,8 @@ var nextId = 0;
 
 var initialState = {
     selectedIndex: 0,
-    pid: null,
+    //pid: '08cd379e-86b2-4fe9-ae29-4634d3ca0c89', //variable
+    pid: 'bda94c64-2bf1-0a31-c9d0-fd31aee03a7c', //curent projects
     layout: 'list',
     maxLevel: 0,
     items: []
@@ -116,7 +117,7 @@ function app(state = initialState, action) {
             console.log('state.maxLevel', state.maxLevel)
             var all = action.items;
 
-            var root = { text: 'Root ' + state.pid, id: state.pid, level: -1 };
+            var root = { text: 'Root ' + state.pid, id: state.pid, level: -1, children: [] };
             var parentsQueue = [ root ]
             var items = [];
 
@@ -127,7 +128,7 @@ function app(state = initialState, action) {
             function checkParentQueue() {
                 if (parentsQueue.length > 0) {
                     var currentParent = parentsQueue.shift();
-                    if (currentParent.level < state.maxLevel) {
+                    if (currentParent.level <= state.maxLevel) {
                         var children = fetchChildren(currentParent.id);
                         children.forEach(function(item) {
                             item.level = currentParent.level + 1;

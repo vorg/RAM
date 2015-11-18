@@ -11,6 +11,7 @@ import { setLayout } from './actions';
 const Provider = React.createFactory(require('react-redux').Provider);
 const List = React.createFactory(require('./components/list'));
 const Header = React.createFactory(require('./components/header'));
+const Container = React.createFactory(require('./components/container'));
 
 const appNode = document.querySelector('#app');
 
@@ -21,7 +22,7 @@ class App extends Component {
         Provider({ store: store },
             React.DOM.div(null,
                 Header(),
-                List()
+                Container()
             )
         )
     )

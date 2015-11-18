@@ -42,17 +42,17 @@ ul {
     margin: 0;
 }
 
-.header {
+h1.header {
     height: 2.5em;
     overflow: auto;
 }
 
-.header span {
+h1.header span {
     float: left;
     padding: 0.2em 0.5em;
 }
 
-.header ul li {
+h1.header ul li {
     background: #333;
     padding: 0.2em 0.5em;
     margin-right: 1px;
@@ -85,6 +85,39 @@ ul.list li input {
     margin: 0;
     border: 0;
     background: #FFFFDD;
+}
+
+.stream {
+    display: flex;
+    max-width: 90%;
+    margin: 0px auto;
+}
+
+.stream ul.list {
+    flex: 1;
+    overflow: hidden;
+}
+
+.stacks {
+    margin: 0px auto;
+}
+
+.stacks ul.list {
+    width: 300px;
+    overflow: hidden;
+    float: left;
+    background: rgba(150,150,150, 0.25);
+    margin-right: 5px;
+    margin-top: 10px;
+    border: 5px solid red;
+    border-color: rgba(150,150,150, 0.25);
+    border-radius: 5px;
+    border-width: 20px 5px 5px 5px;
+}
+
+.stacks ul.list li.header {
+    background: transparent;
+    font-weight: bold;
 }
 
 </style>
